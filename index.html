@@ -157,7 +157,7 @@
        HERO — foto de la muñeca como fondo
     ════════════════════════════ */
     #hero {
-      position: relative; height: 100svh; min-height: 620px;
+      position: relative; height: 100dvh; min-height: 620px;
       display: flex; flex-direction: column;
       justify-content: flex-end;
       overflow: hidden;
@@ -737,6 +737,14 @@
   </a>
 
   <script>
+    // Ocultar chrome del navegador en mobile al cargar
+    // (Android Chrome: scrollTo 1px activa el colapso de la barra de direcciones)
+    if ('ontouchstart' in window) {
+      window.addEventListener('load', () => {
+        setTimeout(() => { window.scrollTo(0, 1); }, 300);
+      });
+    }
+
     // Scroll reveal
     const revealObs = new IntersectionObserver(
       (e) => e.forEach(x => { if (x.isIntersecting) x.target.classList.add('on'); }),
