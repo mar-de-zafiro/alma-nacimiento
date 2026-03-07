@@ -1,0 +1,19 @@
+# Documentos internos de negocio (no exponer públicamente)
+*.md
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editores
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Claude Code
+.claude/
+
+# Otros
+*.log

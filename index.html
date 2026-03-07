@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Alma Nacimiento — Terapia Holística Sistémica y muñecas de acompañamiento</title>
+  <meta name="description" content="Una sesión de Terapia Holística Sistémica con Marcela. De esa sesión, tu muñeca de acompañamiento — creada con la intención de tu proceso." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Nunito:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      /* ── Paleta Pastel Espiritual ── */
+      --linen:          #FDFAF4;   /* blanco cálido casi puro */
+      --linen-warm:     #F5EEE3;   /* crema suave */
+      --sage-whisper:   #DCE8D8;   /* sage muy suave — sesión */
+      --rose-whisper:   #EED9CE;   /* rosa suave — historia */
+      --gold-whisper:   #F2E9D8;   /* dorado pálido — CTA final */
+
+      /* Único acento oscuro — solo para el proceso */
+      --bark:           #3D2B1F;   /* marrón cálido, más suave que antes */
+
+      /* Dorado artesanal */
+      --gold:           #C4975A;
+      --gold-light:     #D4AE78;
+      --gold-btn:       #8B6240;
+      --gold-btn-h:     #6E4D30;
+
+      /* Texto */
+      --text:           #2A1C12;
+      --text-soft:      #6A5844;
+      --text-pale:      rgba(253,250,244,0.72);
+      --text-pale-h:    rgba(253,250,244,0.97);
+      --border:         #E2D5C2;
+
+      --font-serif:  'Playfair Display', Georgia, serif;
+      --font-sans:   'Nunito', system-ui, sans-serif;
+      --max-width:   640px;
+      --gap:         4.5rem;
+      --px:          1.5rem;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--linen);
+      color: var(--text);
+      font-size: 16px;
+      line-height: 1.8;
+      font-weight: 300;
+      -webkit-font-smoothing: antialiased;
+      padding-bottom: 5rem;
+    }
+
+    .container { max-width: var(--max-width); margin: 0 auto; padding: 0 var(--px); }
+    section { padding: var(--gap) 0; }
+
+    h1, h2, h3 { font-family: var(--font-serif); font-weight: 400; line-height: 1.2; }
+    h1 { font-size: clamp(2.8rem, 9vw, 3.5rem); }
+    h2 { font-size: clamp(1.7rem, 5.5vw, 2.0rem); }
+    h3 { font-size: 1.0rem; font-weight: 500; }
+    p  { margin-bottom: 1.1rem; }
+    p:last-child { margin-bottom: 0; }
+
+    /* ── Ornamento ── */
+    .ornament {
+      display: flex; align-items: center; justify-content: center;
+      gap: 0.75rem; margin: 1.5rem auto;
+      color: var(--gold); opacity: 0.5;
+    }
+    .ornament::before, .ornament::after {
+      content: ''; height: 1px; width: 36px; background: currentColor;
+    }
+    .ornament span { font-size: 0.45rem; }
+
+    /* ── Scroll reveal ── */
+    .reveal {
+      opacity: 0; transform: translateY(22px);
+      transition: opacity 0.75s ease, transform 0.75s ease;
+    }
+    .reveal.on { opacity: 1; transform: translateY(0); }
+
+    /* ── Botones ── */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      gap: 0.6rem; font-family: var(--font-sans); font-weight: 500;
+      font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase;
+      text-decoration: none; padding: 1rem 2.1rem; min-height: 52px;
+      border-radius: 100px; transition: background 0.2s, box-shadow 0.2s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .btn svg { width: 17px; height: 17px; flex-shrink: 0; }
+
+    .btn-dark {
+      background: var(--gold-btn); color: var(--linen);
+      box-shadow: 0 4px 20px rgba(139,98,64,.25);
+    }
+    .btn-dark:active { background: var(--gold-btn-h); }
+
+    .btn-gold {
+      background: var(--gold); color: var(--bark);
+      box-shadow: 0 4px 24px rgba(196,151,90,.42);
+    }
+    .btn-gold:active { background: var(--gold-light); }
+
+    /* ── Botón flotante mobile ── */
+    .float-btn {
+      position: fixed; bottom: 1.25rem; left: 50%; transform: translateX(-50%);
+      z-index: 999; display: flex; align-items: center; gap: 0.6rem;
+      background: var(--gold-btn); color: var(--linen);
+      text-decoration: none; font-family: var(--font-sans);
+      font-size: 0.76rem; font-weight: 500; letter-spacing: 0.09em;
+      text-transform: uppercase; padding: 0.9rem 1.75rem; border-radius: 100px;
+      box-shadow: 0 4px 28px rgba(139,98,64,.44); white-space: nowrap;
+      -webkit-tap-highlight-color: transparent; transition: opacity 0.35s ease;
+    }
+    .float-btn.hidden { opacity: 0; pointer-events: none; }
+    .float-btn svg { width: 18px; height: 18px; flex-shrink: 0; }
+
+    /* ── NAV ── */
+    nav {
+      position: absolute; top: 0; left: 0; right: 0; z-index: 10;
+      padding: 1.4rem var(--px); text-align: center;
+    }
+    .nav-logo {
+      font-family: var(--font-serif); font-size: 0.82rem; font-weight: 400;
+      letter-spacing: 0.24em; text-transform: uppercase;
+      color: var(--text); opacity: 0.5; text-decoration: none;
+    }
+
+    /* ════════════════════════════
+       HERO — foto de la muñeca como fondo
+    ════════════════════════════ */
+    #hero {
+      position: relative; height: 100svh; min-height: 620px;
+      display: flex; flex-direction: column;
+      justify-content: flex-end;
+      overflow: hidden;
+      padding: 0;
+    }
+
+    /* Foto de fondo */
+    .hero-bg {
+      position: absolute; inset: 0; z-index: 0;
+    }
+    .hero-bg img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center 18%;
+      display: block;
+    }
+
+    /* Gradiente: transparente arriba (se ve la muñeca clara),
+       crema abajo (para que el texto sea legible) */
+    .hero-overlay {
+      position: absolute; inset: 0; z-index: 1;
+      background: linear-gradient(
+        to bottom,
+        rgba(250,245,236,0)    0%,
+        rgba(250,245,236,0)   38%,
+        rgba(250,245,236,0.6) 62%,
+        rgba(250,245,236,0.96) 100%
+      );
+    }
+
+    /* Contenido sobre la foto, alineado al fondo */
+    .hero-content {
+      position: relative; z-index: 2;
+      padding: 0 var(--px) 3rem;
+      text-align: center;
+    }
+
+    .hero-eyebrow {
+      display: block; font-size: 0.6rem; font-weight: 400;
+      letter-spacing: 0.32em; text-transform: uppercase;
+      color: var(--gold); opacity: .9; margin-bottom: 0.75rem;
+    }
+    #hero h1 {
+      font-style: italic; color: var(--text);
+      line-height: 1.05; margin-bottom: 1rem;
+    }
+    .hero-subtitle {
+      font-family: var(--font-serif); font-style: italic; font-weight: 400;
+      font-size: clamp(1rem, 3.2vw, 1.12rem); color: var(--text-soft);
+      line-height: 1.6; margin-bottom: 1.75rem;
+    }
+
+    .hero-scroll {
+      position: absolute; bottom: 1.5rem; left: 50%;
+      transform: translateX(-50%); z-index: 2;
+      color: var(--gold); opacity: .5;
+      animation: pulse-down 2.4s ease-in-out infinite;
+    }
+    .hero-scroll svg { width: 20px; }
+    @keyframes pulse-down {
+      0%,100% { transform: translateX(-50%) translateY(0);   opacity: .4; }
+      50%      { transform: translateX(-50%) translateY(7px); opacity: .9; }
+    }
+
+    /* ════════════════════════════
+       MARCELA
+    ════════════════════════════ */
+    #marcela { background: var(--linen-warm); text-align: center; }
+    #marcela h2 { font-style: italic; margin-bottom: 0; }
+    #marcela p  { color: var(--text-soft); font-size: .98rem; }
+
+    /* ════════════════════════════
+       LA SESIÓN — sage pastel, calmada
+    ════════════════════════════ */
+    #sesion {
+      background: var(--sage-whisper);
+      text-align: center;
+    }
+
+    .sesion-eyebrow {
+      display: block; font-size: 0.6rem; font-weight: 400;
+      letter-spacing: 0.32em; text-transform: uppercase;
+      color: var(--gold-btn); opacity: .7; margin-bottom: 0.85rem;
+    }
+    #sesion h2 { font-style: italic; color: var(--text); margin-bottom: 0; }
+
+    .sesion-body { margin-top: 0; }
+    .sesion-body p {
+      font-family: var(--font-serif);
+      font-size: clamp(.98rem, 3vw, 1.08rem);
+      color: var(--text-soft); line-height: 1.8;
+    }
+    .sesion-body p strong { color: var(--text); font-weight: 500; }
+
+    /* Los tres ejes de la sesión */
+    .sesion-ejes {
+      display: flex; flex-direction: column;
+      gap: 0; margin: 2.25rem 0;
+      border: 1px solid rgba(139,98,64,.14);
+      border-radius: 10px; overflow: hidden;
+      background: rgba(253,250,244,.65);
+    }
+    .sesion-eje {
+      display: flex; align-items: flex-start; gap: 1rem;
+      padding: 1.25rem; border-bottom: 1px solid rgba(139,98,64,.1);
+      text-align: left;
+    }
+    .sesion-eje:last-child { border-bottom: none; }
+    .sesion-eje-icon {
+      font-size: 1.0rem; flex-shrink: 0;
+      width: 36px; height: 36px;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(196,151,90,.12); border-radius: 50%;
+      color: var(--gold-btn);
+      font-family: var(--font-serif); font-style: italic;
+    }
+    .sesion-eje-text h3 {
+      font-family: var(--font-serif); font-weight: 500;
+      font-size: .95rem; color: var(--text);
+      margin-bottom: .2rem; line-height: 1.3;
+    }
+    .sesion-eje-text p {
+      font-size: .85rem; color: var(--text-soft);
+      line-height: 1.6; margin-bottom: 0;
+    }
+
+    .sesion-nota {
+      font-family: var(--font-serif); font-style: italic;
+      font-size: clamp(.95rem, 2.8vw, 1.05rem);
+      color: var(--gold-btn); line-height: 1.75;
+      margin-top: .5rem; margin-bottom: 0;
+    }
+
+    /* ════════════════════════════
+       LA MUÑECA — nace de la sesión
+    ════════════════════════════ */
+    #muneca { background: var(--linen); text-align: center; }
+    #muneca h2 { font-style: italic; margin-bottom: 0; }
+    #muneca > .container > p { color: var(--text-soft); }
+
+    /* Descripción de la muñeca */
+    .muneca-desc { margin-top: 0; }
+    .muneca-desc p { color: var(--text-soft); }
+
+    /* Qué incluye */
+    .incluye {
+      margin-top: 2rem;
+      background: linear-gradient(135deg, #EDE8DC 0%, var(--linen-warm) 100%);
+      border-radius: 10px; padding: 1.75rem 1.5rem; text-align: left;
+    }
+    .incluye-title {
+      font-family: var(--font-serif); font-style: italic;
+      font-size: 1.05rem; color: var(--text);
+      text-align: center; margin-bottom: 1.1rem;
+    }
+    .incluye-list { list-style: none; }
+    .incluye-list li {
+      display: flex; gap: .75rem; padding: .6rem 0;
+      color: var(--text-soft); font-size: .9rem;
+      border-bottom: 1px solid rgba(180,165,148,.25);
+      align-items: flex-start; line-height: 1.55;
+    }
+    .incluye-list li:last-child { border-bottom: none; }
+    .incluye-list li::before {
+      content: '✦'; font-size: .42rem; color: var(--gold);
+      margin-top: .52rem; flex-shrink: 0;
+    }
+
+    /* Cómo usarla */
+    .usos {
+      margin-top: 1.25rem; background: var(--rose-whisper);
+      padding: 1.5rem; border-radius: 10px; text-align: left;
+    }
+    .usos-title {
+      font-family: var(--font-serif); font-style: italic;
+      font-size: 1.05rem; color: var(--text);
+      text-align: center; margin-bottom: 1rem;
+    }
+    .usos ul { list-style: none; }
+    .usos ul li {
+      padding: .6rem 0 .6rem 1.3rem; position: relative;
+      color: var(--text-soft); font-size: .9rem;
+      border-bottom: 1px solid rgba(180,165,148,.3); line-height: 1.55;
+    }
+    .usos ul li:last-child { border-bottom: none; }
+    .usos ul li::before { content: '—'; position: absolute; left: 0; color: var(--gold); opacity: .6; }
+
+    /* ════════════════════════════
+       PROCESO — único acento oscuro, cálido
+    ════════════════════════════ */
+    #proceso {
+      background: var(--bark);
+      padding: var(--gap) 0 calc(var(--gap) * 1.1);
+    }
+    .proceso-header { text-align: center; margin-bottom: 2.75rem; }
+    .proceso-eyebrow {
+      display: block; font-size: .6rem; font-weight: 400;
+      letter-spacing: .32em; text-transform: uppercase;
+      color: var(--gold); opacity: .8; margin-bottom: .85rem;
+    }
+    #proceso h2 { font-style: italic; color: var(--linen); margin-bottom: .65rem; }
+    .proceso-hook {
+      font-family: var(--font-serif); font-style: italic;
+      font-size: 1.0rem; color: var(--text-pale); line-height: 1.65;
+    }
+
+    /* Timeline */
+    .steps { display: flex; flex-direction: column; }
+    .step {
+      display: flex; gap: 1.25rem;
+      opacity: 0; transform: translateX(-20px);
+      transition: opacity .5s ease, transform .5s ease;
+    }
+    .step.on { opacity: 1; transform: translateX(0); }
+
+    .step-track {
+      display: flex; flex-direction: column;
+      align-items: center; flex-shrink: 0; width: 46px;
+    }
+    .step-circle {
+      width: 44px; height: 44px; border-radius: 50%;
+      border: 1px solid rgba(192,144,96,.45);
+      background: rgba(192,144,96,.1);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; font-family: var(--font-serif);
+      font-size: .8rem; color: var(--gold-light); letter-spacing: .05em;
+    }
+    .step-line {
+      flex: 1; width: 1px; min-height: 1.5rem; margin: 6px 0;
+      background: linear-gradient(to bottom, rgba(192,144,96,.3), rgba(192,144,96,.03));
+    }
+    .step:last-of-type .step-line { display: none; }
+
+    .step-body { padding: .5rem 0 1.75rem; flex: 1; }
+    .step-body h3 {
+      font-family: var(--font-serif); font-size: 1.05rem; font-weight: 500;
+      color: var(--text-pale-h); margin-bottom: .3rem; line-height: 1.3;
+    }
+    .step-body p { font-size: .88rem; color: var(--text-pale); line-height: 1.65; margin-bottom: 0; }
+
+    /* Paso destacado: la sesión */
+    .step-highlight .step-circle {
+      border-color: rgba(192,144,96,.9);
+      background: rgba(192,144,96,.2);
+      color: var(--gold-light);
+    }
+    .step-highlight .step-body h3 { color: #fff; }
+    .step-highlight .step-body p   { color: rgba(250,245,236,.85); }
+
+    /* CTA dentro del proceso */
+    .proceso-cta {
+      text-align: center; margin-top: 2.75rem;
+      padding-top: 2.75rem;
+      border-top: 1px solid rgba(192,144,96,.15);
+    }
+    .proceso-cta-text {
+      font-family: var(--font-serif); font-style: italic;
+      font-size: clamp(1rem, 3vw, 1.15rem);
+      color: var(--text-pale); line-height: 1.7; margin-bottom: 1.75rem;
+    }
+
+    /* ════════════════════════════
+       HISTORIA
+    ════════════════════════════ */
+    #historia { background: var(--rose-whisper); text-align: center; }
+    #historia h2 { font-style: italic; margin-bottom: 0; }
+    .historia-quote {
+      font-family: var(--font-serif); font-style: italic;
+      font-size: clamp(1rem, 3vw, 1.18rem); color: var(--text-soft);
+      line-height: 1.75; max-width: 500px; margin: 0 auto;
+    }
+
+    /* ════════════════════════════
+       CTA FINAL
+    ════════════════════════════ */
+    #cta-final {
+      background: var(--gold-whisper);
+      text-align: center;
+    }
+    #cta-final h2 { font-style: italic; margin-bottom: 0; }
+    #cta-final p {
+      color: var(--text-soft); font-family: var(--font-serif); font-style: italic;
+      font-size: clamp(1rem, 2.8vw, 1.12rem); line-height: 1.75; margin-bottom: 2.25rem;
+    }
+
+    /* ════════════════════════════
+       FOOTER
+    ════════════════════════════ */
+    footer {
+      padding: 2rem var(--px); text-align: center;
+      background: var(--bark);
+      border-top: 1px solid rgba(196,151,90,.12);
+    }
+    .footer-logo {
+      font-family: var(--font-serif); font-size: .82rem;
+      letter-spacing: .22em; text-transform: uppercase;
+      color: rgba(250,245,236,.35); margin-bottom: .85rem;
+    }
+    .footer-links { display: flex; justify-content: center; gap: 1.5rem; margin-bottom: 1.25rem; }
+    .footer-links a {
+      font-size: .78rem; letter-spacing: .1em; text-transform: uppercase;
+      color: var(--gold); text-decoration: none; opacity: .65; padding: .5rem 0;
+    }
+    .footer-copy { font-size: .7rem; color: rgba(250,245,236,.2); }
+
+    /* ── Tablet / Desktop ── */
+    @media (min-width: 600px) {
+      :root { --gap: 5.5rem; --px: 2rem; }
+      body { padding-bottom: 0; }
+      .float-btn { display: none; }
+      .marcela-photo { width: 140px; height: 140px; }
+      .historia-quote { font-size: 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">Alma Nacimiento</a>
+  </nav>
+
+  <!-- ════ HERO — foto de la muñeca ════ -->
+  <section id="hero">
+
+    <!-- Foto principal de Alma Nacimiento -->
+    <div class="hero-bg">
+      <img src="images/AlmaNacimiento-Doll.png" alt="Alma Nacimiento — primera edición" />
+    </div>
+
+    <!-- Gradiente crema sobre la parte inferior para legibilidad -->
+    <div class="hero-overlay" aria-hidden="true"></div>
+
+    <!-- Texto sobre la foto -->
+    <div class="hero-content">
+      <span class="hero-eyebrow">Primera edición</span>
+      <h1>Alma<br>Nacimiento</h1>
+      <p class="hero-subtitle">Una sesión que te transforma.<br>Una muñeca que te acompaña.</p>
+      <a href="https://wa.me/5493875793148?text=Hola%20Marcela%2C%20llegué%20a%20Alma%20Nacimiento%20y%20me%20gustaría%20saber%20más%20sobre%20el%20proceso%20de%20acompañamiento." class="btn btn-dark" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.126.557 4.122 1.528 5.852L.057 23.5l5.797-1.447A11.95 11.95 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.9 0-3.7-.513-5.248-1.406l-.374-.222-3.44.859.873-3.35-.243-.386A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+        Conectá con Marcela
+      </a>
+    </div>
+
+    <div class="hero-scroll" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+        <path d="M12 5v14M5 12l7 7 7-7"/>
+      </svg>
+    </div>
+
+  </section>
+
+  <!-- ════ MARCELA ════ -->
+  <section id="marcela">
+    <div class="container">
+      <div class="reveal">
+        <h2>Soy Marcela</h2>
+        <div class="ornament"><span>✦</span></div>
+        <p>Hola, soy Marcela — alguien como vos que está transitando el camino de búsqueda interior y sanación. Mi manera de expresarme es a través de la creatividad, y en ese camino llegó la inspiración de crear estas muñecas: objetos llenos de historia, intención y acompañamiento.</p>
+        <p>Soy Terapeuta Holística Sistémica, una maestría a la que llegué por el llamado de mi propio proceso. Y hoy el llamado de mi alma es compartir con vos, a través de estas muñecas, todo lo que me ayudó a encontrar y transitar este camino.</p>
+        <p>Estas muñecas no solo te van a acompañar — son un puente sobre el cual podamos caminar juntas.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════ LA SESIÓN — el verdadero hook ════ -->
+  <section id="sesion">
+    <div class="container">
+      <div class="reveal">
+        <span class="sesion-eyebrow">El punto de partida</span>
+        <h2>Todo empieza<br><em>con un encuentro</em></h2>
+        <div class="ornament" style="color: var(--gold); opacity: .35;"><span>✦</span></div>
+
+        <div class="sesion-body">
+          <p>Antes de que nazca tu muñeca, hay una sesión. <strong>Solo vos y yo, en privado.</strong></p>
+          <p>La Terapia Holística Sistémica trabaja desde la raíz: los patrones que se repiten, los vínculos que nos condicionan, las partes de tu historia que todavía no encontraron voz. Es un trabajo genuino, profundo, sin dogma religioso.</p>
+        </div>
+
+        <div class="sesion-ejes">
+          <div class="sesion-eje">
+            <div class="sesion-eje-icon">I</div>
+            <div class="sesion-eje-text">
+              <h3>Lo que traés vos</h3>
+              <p>No hace falta preparar nada. Solo llegar con lo que estás transitando — una emoción, una situación, un momento de quiebre o de búsqueda.</p>
+            </div>
+          </div>
+          <div class="sesion-eje">
+            <div class="sesion-eje-icon">II</div>
+            <div class="sesion-eje-text">
+              <h3>El trabajo de la sesión</h3>
+              <p>Exploramos juntas desde la mirada holística sistémica. Sin juicio. Con presencia real. La sesión no tiene cargo — es parte del proceso completo.</p>
+            </div>
+          </div>
+          <div class="sesion-eje">
+            <div class="sesion-eje-icon">III</div>
+            <div class="sesion-eje-text">
+              <h3>Lo que nace de la sesión</h3>
+              <p>Elegimos juntas la muñeca, la piedra y la esencia según lo que trabajamos. <strong>Cada detalle de tu muñeca nace de lo que hablamos ahí.</strong></p>
+            </div>
+          </div>
+        </div>
+
+        <p class="sesion-nota">"Lo que emerge en una sesión no se va — queda impregnado en cada hilo, en cada piedra, en cada palabra del mantra de tu muñeca."</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════ LA MUÑECA — nace de la sesión ════ -->
+  <section id="muneca">
+    <div class="container">
+      <div class="reveal">
+        <h2>De esa sesión,<br><em>tu muñeca</em></h2>
+        <div class="ornament"><span>✦</span></div>
+
+        <div class="muneca-desc">
+          <p>Impregnada con la energía de lo que trabajamos en la sesión. Activada con Reiki durante todo el proceso de fabricación. Con la esencia y la piedra que elegimos específicamente para vos.</p>
+          <p>No es un objeto genérico. Es una herramienta de acompañamiento creada para <em>tu</em> proceso — para los momentos en que necesitás que algo te sostenga y la presencia de otra persona no está disponible.</p>
+        </div>
+      </div>
+
+      <div class="reveal incluye">
+        <p class="incluye-title">Cada muñeca incluye</p>
+        <ul class="incluye-list">
+          <li>Muñeca artesanal en tela natural</li>
+          <li>Activación con Reiki durante todo el proceso de fabricación</li>
+          <li>Esencia natural integrada en el relleno, elegida en tu sesión</li>
+          <li>Péndulo de piedra natural energética, elegida en tu sesión</li>
+          <li>Tarjeta con mantra escrito para tu proceso específico</li>
+          <li>Historia escrita de la fabricación de tu muñeca</li>
+        </ul>
+      </div>
+
+      <div class="reveal usos">
+        <p class="usos-title">Cómo podés usarla</p>
+        <ul>
+          <li>Hablarle, abrazarla, contarle lo que no podés decirle a nadie</li>
+          <li>Tenerla al lado o debajo de la almohada en los momentos difíciles</li>
+          <li>Llevarla con vos a donde sientas que la necesitás</li>
+          <li>Meditar con ella, sostenerla como punto de presencia y anclaje</li>
+          <li>Colocarla en un lugar especial de tu casa con una intención</li>
+          <li>Leer el mantra en voz alta como un ritual cotidiano</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════ PROCESO — sección oscura, estrella visual ════ -->
+  <section id="proceso">
+    <div class="container">
+
+      <div class="proceso-header reveal">
+        <span class="proceso-eyebrow">El camino</span>
+        <h2>Así nace<br><em>tu muñeca</em></h2>
+        <p class="proceso-hook">Siete pasos. Un solo mensaje para empezar.</p>
+      </div>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-track"><div class="step-circle">01</div><div class="step-line"></div></div>
+          <div class="step-body">
+            <h3>Me escribís por WhatsApp</h3>
+            <p>Un mensaje es suficiente. No hace falta preparar nada ni saber qué decir.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-track"><div class="step-circle">02</div><div class="step-line"></div></div>
+          <div class="step-body">
+            <h3>Coordinamos la sesión</h3>
+            <p>Agendamos un encuentro virtual, por Google Meet o llamada de WhatsApp.</p>
+          </div>
+        </div>
+        <div class="step step-highlight">
+          <div class="step-track"><div class="step-circle">03</div><div class="step-line"></div></div>
+          <div class="step-body">
+            <h3>La sesión — solo nosotras</h3>
+            <p>Terapia Holística Sistémica. Un espacio profundo y personal donde todo toma forma. La sesión no tiene cargo — es parte del proceso.</p>
+          </div>
+        </div>
+        <div class="step step-highlight">
+          <div class="step-track"><div class="step-circle">04</div><div class="step-line"></div></div>
+          <div class="step-body">
+            <h3>Elegimos tu muñeca juntas</h3>
+            <p>En la sesión seleccionamos la muñeca, la piedra y la esencia que acompañan exactamente lo que estás atravesando.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-track"><div class="step-circle">05</div><div class="step-line"></div></div>
+          <div class="step-body">
+            <h3>Coordinamos los detalles</h3>
+            <p>Acordamos todo en privado por WhatsApp, antes de comenzar.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-track"><div class="step-circle">06</div><div class="step-line"></div></div>
+          <div class="step-body">
+            <h3>Fabrico tu muñeca</h3>
+            <p>Con Reiki, con la esencia y la piedra elegidas en tu sesión. Con el mantra escrito solo para vos.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-track"><div class="step-circle">07</div><div class="step-line"></div></div>
+          <div class="step-body">
+            <h3>Tu muñeca llega a vos</h3>
+            <p>Antes del envío te mando fotos y un mensaje cerrando el proceso de fabricación.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="proceso-cta reveal">
+        <p class="proceso-cta-text">
+          ¿Sentís que esto es para vos?<br>
+          Empezá con un solo mensaje.
+        </p>
+        <a href="https://wa.me/5493875793148?text=Hola%20Marcela%2C%20llegué%20a%20Alma%20Nacimiento%20y%20me%20gustaría%20saber%20más%20sobre%20el%20proceso%20de%20acompañamiento." class="btn btn-gold" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.126.557 4.122 1.528 5.852L.057 23.5l5.797-1.447A11.95 11.95 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.9 0-3.7-.513-5.248-1.406l-.374-.222-3.44.859.873-3.35-.243-.386A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+          Conectá con Marcela
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ════ HISTORIA ════ -->
+  <section id="historia">
+    <div class="container">
+      <div class="reveal">
+        <h2>Por qué<br><em>Alma Nacimiento</em></h2>
+        <div class="ornament"><span>✦</span></div>
+        <p class="historia-quote">
+          "Esta muñeca nació de mi propia transformación. Del cierre de una etapa y del comienzo de una nueva, más fiel a mi consciencia y a mi despertar. Por eso se llama así — porque acompaña esos momentos en que algo termina y algo nuevo todavía no tiene nombre."
+        </p>
+        <p class="historia-quote" style="margin-top:1.5rem; font-size: clamp(.95rem,2.5vw,1.05rem);">
+          Es la primera de una serie que seguirá creciendo. Y como toda semilla, su propósito es simple: crecer a tu lado, y acompañarte en lo que estás transitando.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════ CTA FINAL ════ -->
+  <section id="cta-final">
+    <div class="container">
+      <div class="reveal">
+        <h2>Si algo resonó<br><em>en vos</em></h2>
+        <div class="ornament"><span>✦</span></div>
+        <p>Escribime. No hay nada que preparar, no hay preguntas correctas. Solo una conversación para ver si hay algo aquí para vos.</p>
+        <a href="https://wa.me/5493875793148?text=Hola%20Marcela%2C%20llegué%20a%20Alma%20Nacimiento%20y%20me%20gustaría%20saber%20más%20sobre%20el%20proceso%20de%20acompañamiento." class="btn btn-dark" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.126.557 4.122 1.528 5.852L.057 23.5l5.797-1.447A11.95 11.95 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.9 0-3.7-.513-5.248-1.406l-.374-.222-3.44.859.873-3.35-.243-.386A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+          Conectá con Marcela
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════ FOOTER ════ -->
+  <footer>
+    <div class="footer-logo">Alma Nacimiento</div>
+    <div class="footer-links">
+      <a href="https://instagram.com/mar_de_zafiro" target="_blank" rel="noopener">@mar_de_zafiro</a>
+    </div>
+    <p class="footer-copy">Hecho a mano con intención.</p>
+  </footer>
+
+  <!-- Botón flotante — solo mobile, oculto durante hero -->
+  <a href="https://wa.me/5493875793148?text=Hola%20Marcela%2C%20llegué%20a%20Alma%20Nacimiento%20y%20me%20gustaría%20saber%20más%20sobre%20el%20proceso%20de%20acompañamiento." class="float-btn hidden" target="_blank" rel="noopener" aria-label="Conectá con Marcela">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.126.557 4.122 1.528 5.852L.057 23.5l5.797-1.447A11.95 11.95 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.9 0-3.7-.513-5.248-1.406l-.374-.222-3.44.859.873-3.35-.243-.386A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+    Conectá con Marcela
+  </a>
+
+  <script>
+    // Scroll reveal
+    const revealObs = new IntersectionObserver(
+      (e) => e.forEach(x => { if (x.isIntersecting) x.target.classList.add('on'); }),
+      { threshold: 0.08 }
+    );
+    document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+    // Pasos del proceso: aparecen en cascada
+    const allSteps = document.querySelectorAll('.step');
+    const stepsContainer = document.querySelector('.steps');
+    let triggered = false;
+    const stepsObs = new IntersectionObserver((e) => {
+      e.forEach(x => {
+        if (x.isIntersecting && !triggered) {
+          triggered = true;
+          allSteps.forEach((s, i) => setTimeout(() => s.classList.add('on'), i * 110));
+        }
+      });
+    }, { threshold: 0.05 });
+    if (stepsContainer) stepsObs.observe(stepsContainer);
+
+    // Botón flotante: visible solo fuera del hero
+    const hero = document.querySelector('#hero');
+    const floatBtn = document.querySelector('.float-btn');
+    new IntersectionObserver(
+      (e) => e.forEach(x => floatBtn.classList.toggle('hidden', x.isIntersecting)),
+      { threshold: 0.1 }
+    ).observe(hero);
+  </script>
+
+</body>
+</html>
