@@ -210,6 +210,12 @@
       line-height: 1.6; margin-bottom: 1.75rem;
     }
 
+    .hero-cta-hint {
+      display: block; margin-top: 0.5rem;
+      font-family: var(--font-sans); font-size: 0.82rem;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--gold); opacity: .7;
+    }
     .hero-scroll {
       position: absolute;
       bottom: calc(1.5rem + env(safe-area-inset-bottom));
@@ -218,10 +224,27 @@
       color: var(--gold); opacity: .5;
       animation: pulse-down 2.4s ease-in-out infinite;
     }
-    .hero-scroll svg { width: 20px; }
+    .hero-scroll svg { width: 28px; }
     @keyframes pulse-down {
       0%,100% { transform: translateX(-50%) translateY(0);   opacity: .4; }
-      50%      { transform: translateX(-50%) translateY(7px); opacity: .9; }
+      50%      { transform: translateX(-50%) translateY(10px); opacity: 1; }
+    }
+
+    /* ── Scroll hint arrows between sections ── */
+    .scroll-hint {
+      display: flex; flex-direction: column; align-items: center;
+      padding: 1rem 0 0.25rem; color: var(--gold); opacity: .45;
+      animation: bounce-hint 2.2s ease-in-out infinite;
+    }
+    .scroll-hint svg { width: 22px; }
+    .scroll-hint span {
+      font-family: var(--font-sans); font-size: 0.65rem;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      margin-bottom: 0.25rem; opacity: .8;
+    }
+    @keyframes bounce-hint {
+      0%,100% { transform: translateY(0);   opacity: .3; }
+      50%      { transform: translateY(6px); opacity: .65; }
     }
 
     /* ════════════════════════════
@@ -512,10 +535,7 @@
       <span class="hero-eyebrow">Primera edición</span>
       <h1>Alma<br>Nacimiento</h1>
       <p class="hero-subtitle">Una sesión que te transforma.<br>Una muñeca que te acompaña.</p>
-      <a href="https://wa.me/5493875793148?text=Hola%20Marcela%2C%20llegué%20a%20Alma%20Nacimiento%20y%20me%20gustaría%20saber%20más%20sobre%20el%20proceso%20de%20acompañamiento." class="btn btn-dark" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.126.557 4.122 1.528 5.852L.057 23.5l5.797-1.447A11.95 11.95 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.9 0-3.7-.513-5.248-1.406l-.374-.222-3.44.859.873-3.35-.243-.386A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
-        Conectá con Marcela
-      </a>
+      <span class="hero-cta-hint">Descubrí cómo funciona</span>
     </div>
 
     <div class="hero-scroll" aria-hidden="true">
@@ -536,6 +556,10 @@
         <p>Soy Terapeuta Holística Sistémica, una maestría a la que llegué por el llamado de mi propio proceso. Y hoy el llamado de mi alma es compartir con vos, a través de estas muñecas, todo lo que me ayudó a encontrar y transitar este camino.</p>
         <p>Estas muñecas no solo te van a acompañar — son un puente sobre el cual podamos caminar juntas.</p>
       </div>
+    </div>
+    <div class="scroll-hint" aria-hidden="true">
+      <span>seguí bajando</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M7 10l5 5 5-5"/></svg>
     </div>
   </section>
 
@@ -579,6 +603,10 @@
         <p class="sesion-nota">"Lo que emerge en una sesión no se va — queda impregnado en cada hilo, en cada piedra, en cada palabra del mantra de tu muñeca."</p>
       </div>
     </div>
+    <div class="scroll-hint" aria-hidden="true">
+      <span>seguí bajando</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M7 10l5 5 5-5"/></svg>
+    </div>
   </section>
 
   <!-- ════ LA MUÑECA — nace de la sesión ════ -->
@@ -617,6 +645,10 @@
           <li>Leer el mantra en voz alta como un ritual cotidiano</li>
         </ul>
       </div>
+    </div>
+    <div class="scroll-hint" aria-hidden="true">
+      <span>seguí bajando</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M7 10l5 5 5-5"/></svg>
     </div>
   </section>
 
@@ -779,13 +811,25 @@
     }, { threshold: 0.05 });
     if (stepsContainer) stepsObs.observe(stepsContainer);
 
-    // Botón flotante: visible solo fuera del hero
-    const hero = document.querySelector('#hero');
+    // Botón flotante: visible solo después de pasar la sección proceso
+    const proceso = document.querySelector('#proceso');
     const floatBtn = document.querySelector('.float-btn');
-    new IntersectionObserver(
-      (e) => e.forEach(x => floatBtn.classList.toggle('hidden', x.isIntersecting)),
-      { threshold: 0.1 }
-    ).observe(hero);
+    let pastProceso = false;
+    new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        // Show button when bottom of proceso has been seen (ratio going down means scrolling past)
+        if (entry.isIntersecting) pastProceso = true;
+        floatBtn.classList.toggle('hidden', !pastProceso);
+      });
+    }, { threshold: 0.6 }).observe(proceso);
+
+    // Also hide if user scrolls back to top
+    const hero = document.querySelector('#hero');
+    new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) { pastProceso = false; floatBtn.classList.add('hidden'); }
+      });
+    }, { threshold: 0.3 }).observe(hero);
   </script>
 
 </body>
