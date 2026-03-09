@@ -161,7 +161,7 @@
        HERO — foto de la muñeca como fondo
     ════════════════════════════ */
     #hero {
-      position: relative; height: 100dvh; min-height: 620px;
+      position: relative; height: 88dvh; min-height: 560px;
       display: flex; flex-direction: column;
       justify-content: flex-end;
       overflow: hidden;
@@ -227,7 +227,10 @@
       transform: translateX(-50%); z-index: 2;
       color: var(--gold);
       display: flex; flex-direction: column; align-items: center;
+      cursor: pointer; -webkit-tap-highlight-color: transparent;
+      transition: opacity 0.4s ease;
     }
+    .hero-scroll.fade-out { opacity: 0; pointer-events: none; }
     .hero-scroll svg {
       width: 44px; height: 24px; display: block;
       margin-top: -8px; opacity: 0;
@@ -559,7 +562,7 @@
       <span class="hero-cta-hint">Descubrí cómo funciona</span>
     </div>
 
-    <div class="hero-scroll" aria-hidden="true">
+    <div class="hero-scroll" role="button" tabindex="0" aria-label="Scrolleá hacia abajo">
       <svg viewBox="0 0 24 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l10 10L22 2"/></svg>
       <svg viewBox="0 0 24 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l10 10L22 2"/></svg>
       <svg viewBox="0 0 24 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l10 10L22 2"/></svg>
@@ -628,14 +631,6 @@
         <p class="sesion-nota">"Lo que emerge en una sesión no se va — queda impregnado en cada hilo, en cada piedra, en cada palabra del mantra de tu muñeca."</p>
       </div>
     </div>
-    <div class="scroll-hint" aria-hidden="true">
-      <span>seguí bajando</span>
-      <div class="chevrons">
-        <svg viewBox="0 0 24 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l10 10L22 2"/></svg>
-        <svg viewBox="0 0 24 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l10 10L22 2"/></svg>
-        <svg viewBox="0 0 24 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l10 10L22 2"/></svg>
-      </div>
-    </div>
   </section>
 
   <!-- ════ LA MUÑECA — nace de la sesión ════ -->
@@ -673,14 +668,6 @@
           <li>Colocarla en un lugar especial de tu casa con una intención</li>
           <li>Leer el mantra en voz alta como un ritual cotidiano</li>
         </ul>
-      </div>
-    </div>
-    <div class="scroll-hint" aria-hidden="true">
-      <span>seguí bajando</span>
-      <div class="chevrons">
-        <svg viewBox="0 0 24 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l10 10L22 2"/></svg>
-        <svg viewBox="0 0 24 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l10 10L22 2"/></svg>
-        <svg viewBox="0 0 24 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l10 10L22 2"/></svg>
       </div>
     </div>
   </section>
@@ -844,20 +831,38 @@
     }, { threshold: 0.05 });
     if (stepsContainer) stepsObs.observe(stepsContainer);
 
+    // Hero scroll arrow: click to smooth-scroll to next section, hide on scroll
+    const hero = document.querySelector('#hero');
+    const heroScroll = document.querySelector('.hero-scroll');
+    const marcela = document.querySelector('#marcela');
+    heroScroll.addEventListener('click', () => {
+      marcela.scrollIntoView({ behavior: 'smooth' });
+    });
+    // Hide hero arrow + section hint once user starts scrolling
+    const scrollHint = document.querySelector('.scroll-hint');
+    let hasScrolled = false;
+    new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting && !hasScrolled) {
+          hasScrolled = true;
+          heroScroll.classList.add('fade-out');
+          if (scrollHint) scrollHint.style.display = 'none';
+        }
+      });
+    }, { threshold: 0.5 }).observe(hero);
+
     // Botón flotante: visible solo después de pasar la sección proceso
     const proceso = document.querySelector('#proceso');
     const floatBtn = document.querySelector('.float-btn');
     let pastProceso = false;
     new IntersectionObserver((entries) => {
       entries.forEach(entry => {
-        // Show button when bottom of proceso has been seen (ratio going down means scrolling past)
         if (entry.isIntersecting) pastProceso = true;
         floatBtn.classList.toggle('hidden', !pastProceso);
       });
     }, { threshold: 0.6 }).observe(proceso);
 
-    // Also hide if user scrolls back to top
-    const hero = document.querySelector('#hero');
+    // Also hide float btn if user scrolls back to top
     new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) { pastProceso = false; floatBtn.classList.add('hidden'); }
